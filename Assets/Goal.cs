@@ -31,7 +31,7 @@ public class Goal : MonoBehaviour
             }
         }
 
-        Debug.Log($"{closeSheep}/{sheep.Length}");
+        //Debug.Log($"{closeSheep}/{sheep.Length}");
 
         if (closeSheep == sheep.Length)
         {

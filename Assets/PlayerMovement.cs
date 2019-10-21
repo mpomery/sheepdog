@@ -4,6 +4,7 @@ public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody rb;
     public Transform playerCamera;
+    public string inputDevice;
 
     // Camera angle and rotation is relative to games axis, not player
     private float cameraElevationAngle = 10; // 10 to 45 degrees
@@ -24,9 +25,22 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        for (int action = (int)KeyCode.Backspace; action <= (int)KeyCode.Joystick8Button19; action++)
+        {
+            if (Input.GetKeyDown((KeyCode)action) && ((KeyCode)action).ToString().Contains("Joystick"))
+            {
+                var controllerNumber = ((KeyCode)action).ToString().Substring(8, 2);
+                if (controllerNumber.EndsWith("B"))
+                {
+                    controllerNumber = controllerNumber.Substring(0, 1);
+                }
+                Debug.Log("This is Joystick Number " + controllerNumber);
+            }
+        }
+
         // Move the camera
-        var verticalCameraInput = Input.GetAxis("Camera X");
-        var horizontalCameraInput = Input.GetAxis("Camera Y");
+        var verticalCameraInput = Input.GetAxis($"{inputDevice} Camera X");
+        var horizontalCameraInput = Input.GetAxis($"{inputDevice} Camera Y");
 
         cameraRotation = (cameraRotation - verticalCameraInput) % 360;
         cameraElevationAngle += horizontalCameraInput;
@@ -50,8 +64,8 @@ public class PlayerMovement : MonoBehaviour
 
 
         // Calculate input amount
-        var verticalInput = Input.GetAxis("Vertical");
-        var horizontalInput = Input.GetAxis("Horizontal");
+        var verticalInput = Input.GetAxis($"{inputDevice} Vertical");
+        var horizontalInput = Input.GetAxis($"{inputDevice} Horizontal");
         var inputSpeed = Mathf.Sqrt(Mathf.Pow(verticalInput, 2) + Mathf.Pow(horizontalInput, 2));
         // Cap input speed to 1 to prevent keyboard from going faster
         if (inputSpeed > 1)

@@ -122,6 +122,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 087ce91c15f9b3042bc44afa1078331a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 873588291790405883}
-  moveSpeed: 500
   playerCamera: {fileID: 0}
+  inputDevice: Joy1
