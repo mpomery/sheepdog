@@ -16,6 +16,11 @@ public class SheepAI : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         dogs = GameObject.FindGameObjectsWithTag("Player");
+
+        var startX = Random.Range(-80, 80);
+        var startZ = Random.Range(-80, 80);
+
+        transform.position = new Vector3(startX, 1, startZ);
     }
 
     // Update is called once per frame
