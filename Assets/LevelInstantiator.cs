@@ -5,7 +5,7 @@ using UnityEngine;
 public class LevelInstantiator : MonoBehaviour
 {
     public Texture guiTexture;
-    public string[] controllers = { "Keyboard", "Keyboard", "Keyboard" };
+    private string[] controllers = { "Keyboard", "Joy5", "Joy3" };
 
     // Start is called before the first frame update
     // This is used to create all of the player objects in the scene and their cameras
@@ -62,19 +62,23 @@ public class LevelInstantiator : MonoBehaviour
     {
         var playerCount = controllers.Length;
 
-        Debug.Log(GUI.color);
-
         if (playerCount > 1)
         {
             // Draw Horizintal Line
-            GUI.Box(new Rect(0, Screen.height / 2f, Screen.width, 2), guiTexture);
+            GUI.DrawTexture(new Rect(0, (Screen.height / 2f) - 5, Screen.width, 5), guiTexture, ScaleMode.StretchToFill);
             //GUI.Box(new Rect(0, 0, Screen.width, Screen.height), "This is a box");
         }
 
         if (playerCount > 2)
         {
             // Draw Vertical Line
-            GUI.Box(new Rect(Screen.width / 2f, 0, 2, Screen.height), guiTexture);
+            GUI.DrawTexture(new Rect(Screen.width / 2f, 0, 5, Screen.height), guiTexture, ScaleMode.StretchToFill);
         }
+
+        /*if (playerCount == 3)
+        {
+            // Fill Last Box
+            GUI.DrawTexture(new Rect(Screen.width / 2f, (Screen.height / 2f) - 5, Screen.width, Screen.height), guiTexture, ScaleMode.StretchToFill);
+        }*/
     }
 }
