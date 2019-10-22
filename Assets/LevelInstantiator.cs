@@ -1,16 +1,19 @@
 ﻿using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelInstantiator : MonoBehaviour
 {
     public Texture guiTexture;
-    private string[] controllers = { "Keyboard", "Joy5", "Joy3" };
+    private string[] controllers;
 
     // Start is called before the first frame update
     // This is used to create all of the player objects in the scene and their cameras
     void Start()
     {
+        controllers = Players.players.Where(player => player != "").ToArray<string>();
+
         var playerCount = controllers.Length;
 
         var playerScreenHeight = 1.0f;

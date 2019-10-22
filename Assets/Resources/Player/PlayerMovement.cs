@@ -25,19 +25,6 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        for (int action = (int)KeyCode.Backspace; action <= (int)KeyCode.Joystick8Button19; action++)
-        {
-            if (Input.GetKeyDown((KeyCode)action) && ((KeyCode)action).ToString().Contains("Joystick"))
-            {
-                var controllerNumber = ((KeyCode)action).ToString().Substring(8, 2);
-                if (controllerNumber.EndsWith("B"))
-                {
-                    controllerNumber = controllerNumber.Substring(0, 1);
-                }
-                Debug.Log("This is Joystick Number " + controllerNumber);
-            }
-        }
-
         // Move the camera
         var verticalCameraInput = Input.GetAxis($"{inputDevice} Camera X");
         var horizontalCameraInput = Input.GetAxis($"{inputDevice} Camera Y");
