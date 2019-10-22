@@ -26,36 +26,39 @@ public class SheepAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var closestDog = dogs[0];
-        var closestDogDistance = (transform.position - closestDog.transform.position).magnitude;
-
-        foreach (var dog in dogs)
+        if (dogs.Length > 0)
         {
-            var myDistance = (transform.position - dog.transform.position).magnitude;
-            if (myDistance < closestDogDistance)
+            var closestDog = dogs[0];
+            var closestDogDistance = (transform.position - closestDog.transform.position).magnitude;
+
+            foreach (var dog in dogs)
             {
-                closestDog = dog;
-                closestDogDistance = myDistance;
+                var myDistance = (transform.position - dog.transform.position).magnitude;
+                if (myDistance < closestDogDistance)
+                {
+                    closestDog = dog;
+                    closestDogDistance = myDistance;
+                }
             }
-        }
 
-        var heading = transform.position - closestDog.transform.position;
-        var distance = heading.magnitude;
-        //Debug.Log($"heading: {heading}");
-        //Debug.Log($"distance: {distance}");
+            var heading = transform.position - closestDog.transform.position;
+            var distance = heading.magnitude;
+            //Debug.Log($"heading: {heading}");
+            //Debug.Log($"distance: {distance}");
 
-        if (distance < startleDistance)
-        {
-            var theta = Mathf.Atan2(heading.x, heading.z) * Mathf.Rad2Deg;
-            angle = theta + 180;
-            //Debug.Log($"angle: {angle}");
+            if (distance < startleDistance)
+            {
+                var theta = Mathf.Atan2(heading.x, heading.z) * Mathf.Rad2Deg;
+                angle = theta + 180;
+                //Debug.Log($"angle: {angle}");
 
-            var step = 1000 * Time.deltaTime;
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(90, angle, 0), step);
+                var step = 1000 * Time.deltaTime;
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(90, angle, 0), step);
 
-            var speed = (startleDistance - distance) / startleDistance;
+                var speed = (startleDistance - distance) / startleDistance;
 
-            rb.velocity = Quaternion.Euler(0, angle + 90, 0) * new Vector3(speed * 10, 0, 0);
+                rb.velocity = Quaternion.Euler(0, angle + 90, 0) * new Vector3(speed * 10, 0, 0);
+            }
         }
     }
 }

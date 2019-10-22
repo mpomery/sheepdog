@@ -3,7 +3,7 @@
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody rb;
-    public Transform playerCamera;
+    public Camera playerCamera;
     public string inputDevice;
 
     // Camera angle and rotation is relative to games axis, not player
@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Player Initialized");
+        Debug.Log($"Player Initialized using {inputDevice}");
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
     }
@@ -59,8 +59,8 @@ public class PlayerMovement : MonoBehaviour
         // Place the camera relative to the player
         var cameraOffset = new Vector3(0, 0, cameraDistance);
         cameraOffset = Quaternion.Euler(-cameraElevationAngle, cameraRotation, 0f) * cameraOffset;
-        playerCamera.position = transform.position + cameraOffset;
-        playerCamera.rotation = Quaternion.Euler(cameraElevationAngle, cameraRotation + 180, 0f);
+        playerCamera.transform.position = transform.position + cameraOffset;
+        playerCamera.transform.rotation = Quaternion.Euler(cameraElevationAngle, cameraRotation + 180, 0f);
 
 
         // Calculate input amount
