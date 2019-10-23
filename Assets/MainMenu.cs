@@ -75,19 +75,7 @@ public class MainMenu : MonoBehaviour
                         }
                     }
                 }
-                else
-                {
-                    Debug.Log($"{controller} is not in the game so we can't remove them :think:");
-                }
             }
         }
-
-
-        /*var playout = "";
-        foreach (var player in players)
-        {
-            playout += $"{player} ";
-        }
-        Debug.Log($"Current Players: {playout}");*/
     }
 }
