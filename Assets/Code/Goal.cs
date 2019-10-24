@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Goal : MonoBehaviour
@@ -9,7 +10,19 @@ public class Goal : MonoBehaviour
     void Start()
     {
         transform.localScale = new Vector3(2 * goalRadius, 1, 2 * goalRadius);
-        var sheep = FindObjectsOfType(typeof(SheepAI)) as SheepAI[];
+
+        // Spawn Sheep!
+        var rand = new System.Random();
+        var sheepToSpawn = 8;
+        var sheepSpawns = GameObject.FindGameObjectsWithTag("SheepSpawn").OrderBy(a => rand.Next()).ToList<GameObject>();
+
+        for (var i = 0; i < sheepToSpawn; i++)
+        {
+            var sheepObject = Resources.Load("Sheep/Sheep") as GameObject;
+            Debug.Log($"Loaded {sheepObject}");
+            var singleSheep = Instantiate(sheepObject);
+            singleSheep.transform.position = sheepSpawns[i].transform.position;
+        }
     }
 
     // Update is called once per frame

@@ -15,6 +15,7 @@ public class LevelInstantiator : MonoBehaviour
         var playerCount = Players.PlayerCount();
         var players = Players.GetPlayers();
 
+        // Move this out to it's own function with tests. Pass in player, player count and get camera rectangle back
         var playerScreenHeight = 1.0f;
         var playerScreenWidth = 1.0f;
 
@@ -27,7 +28,6 @@ public class LevelInstantiator : MonoBehaviour
         {
             playerScreenWidth = 0.5f;
         }
-
 
         for (var i = 0; i < playerCount; i++)
         {
@@ -68,7 +68,6 @@ public class LevelInstantiator : MonoBehaviour
         {
             // Draw Horizintal Line
             GUI.DrawTexture(new Rect(0, (Screen.height / 2f) - 5, Screen.width, 5), guiTex, ScaleMode.StretchToFill);
-            //GUI.Box(new Rect(0, 0, Screen.width, Screen.height), "This is a box");
         }
 
         if (playerCount > 2)
