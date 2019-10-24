@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 public static class Players
 {
-    private static int maxPlayers = 4;
-    private static List<PlayerSettings> playerSettings = new List<PlayerSettings>(maxPlayers);
+    public static int maxPlayers = 4;
+    private static List<PlayerSettings> playerSettings = Enumerable.Repeat<PlayerSettings>(null, 4).ToList();
 
     public static bool AddPlayer(string controls)
     {
         var newPlayer = new PlayerSettings();
         newPlayer.Controller = controls;
 
-        var firstEmpty = playerSettings.IndexOf(null);
+        var firstEmpty = playerSettings.DefaultIfEmpty(null).ToList().IndexOf(null);
 
         if (firstEmpty != -1)
         {
@@ -43,9 +43,14 @@ public static class Players
         return playerSettings.Where(p => p != null).ToList();
     }
 
-    public static List<PlayerSettings> GetPlayersList()
+    public static List<PlayerSettings> GetAllPlayers()
     {
-        return playerSettings;
+        return playerSettings.DefaultIfEmpty(null).ToList();
+    }
+
+    public static void RemoveAllPlayers()
+    {
+        playerSettings = Enumerable.Repeat<PlayerSettings>(null, 4).ToList();
     }
 
     public static int PlayerCount()
