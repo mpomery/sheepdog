@@ -5,14 +5,12 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     // TODO: Convert this to a list of objects
-    private string[] players = { "", "", "", "" }; // Maximum of 4 players
-
     private string[] possibleControllers = { "Keyboard", "Joy1", "Joy2", "Joy3", "Joy4", "Joy5", "Joy6", "Joy7", "Joy8" };
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        Players.RemoveAllPlayers();
     }
 
     // Update is called once per frame
@@ -22,37 +20,22 @@ public class MainMenu : MonoBehaviour
         {
             if (Input.GetButtonDown($"{controller} Select"))
             {
-                if (Array.Exists(players, player => player == controller))
+                if (Players.IsPlayer(controller))
                 {
                     Debug.Log($"{controller} is already in game!");
                 }
                 else
                 {
-                    var playerAdded = false;
-                    for (var i = 0; i < players.Length; i++)
-                    {
-                        if (players[i] == "")
-                        {
-                            players[i] = controller;
-                            Debug.Log($"{controller} added to the game!");
-                            playerAdded = true;
-                            break;
-                        }
-                    }
-                    if (!playerAdded)
-                    {
-                        Debug.Log($"No free spaces for {controller} :(");
-                    }
-
+                    Players.AddPlayer(controller);
+                    Debug.Log($"{controller} added to the game!");
                 }
             }
 
             if (Input.GetButtonDown($"{controller} Submit"))
             {
-                if (Array.Exists(players, player => player == controller))
+                if (Players.IsPlayer(controller))
                 {
                     Debug.Log($"{controller} is in game and wants to start!");
-                    Players.players = players;
                     SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
                 }
                 else
@@ -63,19 +46,29 @@ public class MainMenu : MonoBehaviour
 
             if (Input.GetButtonDown($"{controller} Cancel"))
             {
-                if (Array.Exists(players, player => player == controller))
-                {
-                    for (var i = 0; i < players.Length; i++)
-                    {
-                        if (players[i] == controller)
-                        {
-                            players[i] = "";
-                            Debug.Log($"{controller} is in game and wants out!");
-                            break;
-                        }
-                    }
-                }
+                Players.RemovePlayer(controller);
+                Debug.Log($"{controller} is in game and wants out!");
             }
         }
+    }
+
+    private void OnGUI()
+    {
+        var gui = new GUIStyle();
+
+        gui.normal.textColor = Color.black;
+
+        var players = "";
+        var allPlayers = Players.GetAllPlayers();
+        for (var i = 0; i < 4; i++)
+        {
+            var controller = allPlayers[i]?.Controller;
+            if (controller == null)
+            {
+                controller = "No One";
+            }
+            players += $"{i}: {controller}\r\n";
+        }
+        GUI.Label(new Rect(100, 100, 500, 500), players, gui);
     }
 }

@@ -8,14 +8,13 @@ public class SheepAI : MonoBehaviour
     private Rigidbody rb;
     private float angle;
     private static int startleDistance = 10;
-    private static int moveSpeed = 400;
+    private static int moveSpeed = 20;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-        dogs = GameObject.FindGameObjectsWithTag("Player");
 
         var startX = Random.Range(-80, 80);
         var startZ = Random.Range(-80, 80);
@@ -26,6 +25,7 @@ public class SheepAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        dogs = GameObject.FindGameObjectsWithTag("Player");
         if (dogs.Length > 0)
         {
             var closestDog = dogs[0];
@@ -43,8 +43,8 @@ public class SheepAI : MonoBehaviour
 
             var heading = transform.position - closestDog.transform.position;
             var distance = heading.magnitude;
-            //Debug.Log($"heading: {heading}");
-            //Debug.Log($"distance: {distance}");
+            Debug.Log($"heading: {heading}");
+            Debug.Log($"distance: {distance}");
 
             if (distance < startleDistance)
             {
@@ -57,7 +57,7 @@ public class SheepAI : MonoBehaviour
 
                 var speed = (startleDistance - distance) / startleDistance;
 
-                rb.velocity = Quaternion.Euler(0, angle + 90, 0) * new Vector3(speed * 10, 0, 0);
+                rb.velocity = Quaternion.Euler(0, angle + 90, 0) * new Vector3(speed * moveSpeed, 0, 0);
             }
         }
     }

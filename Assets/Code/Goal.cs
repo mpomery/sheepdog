@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Goal : MonoBehaviour
 {
@@ -36,6 +35,7 @@ public class Goal : MonoBehaviour
         if (closeSheep == sheep.Length)
         {
             Debug.Log($"All Sheep Herded");
+            SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
         }
     }
 }

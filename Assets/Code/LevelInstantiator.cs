@@ -5,16 +5,15 @@ using UnityEngine;
 
 public class LevelInstantiator : MonoBehaviour
 {
-    public Texture guiTexture;
+    public Texture guiTex;
     private string[] controllers;
 
     // Start is called before the first frame update
     // This is used to create all of the player objects in the scene and their cameras
     void Start()
     {
-        controllers = Players.players.Where(player => player != "").ToArray<string>();
-
-        var playerCount = controllers.Length;
+        var playerCount = Players.PlayerCount();
+        var players = Players.GetPlayers();
 
         var playerScreenHeight = 1.0f;
         var playerScreenWidth = 1.0f;
@@ -32,7 +31,7 @@ public class LevelInstantiator : MonoBehaviour
 
         for (var i = 0; i < playerCount; i++)
         {
-            var controller = controllers[i];
+            var controller = players[i].Controller;
             Debug.Log($"Creating Player For {controller}");
             var playerObject = Resources.Load("Player/Dog") as GameObject;
             Debug.Log($"Loaded {playerObject}");
@@ -68,14 +67,14 @@ public class LevelInstantiator : MonoBehaviour
         if (playerCount > 1)
         {
             // Draw Horizintal Line
-            GUI.DrawTexture(new Rect(0, (Screen.height / 2f) - 5, Screen.width, 5), guiTexture, ScaleMode.StretchToFill);
+            GUI.DrawTexture(new Rect(0, (Screen.height / 2f) - 5, Screen.width, 5), guiTex, ScaleMode.StretchToFill);
             //GUI.Box(new Rect(0, 0, Screen.width, Screen.height), "This is a box");
         }
 
         if (playerCount > 2)
         {
             // Draw Vertical Line
-            GUI.DrawTexture(new Rect(Screen.width / 2f, 0, 5, Screen.height), guiTexture, ScaleMode.StretchToFill);
+            GUI.DrawTexture(new Rect(Screen.width / 2f, 0, 5, Screen.height), guiTex, ScaleMode.StretchToFill);
         }
 
         /*if (playerCount == 3)
