@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 public class Goal : MonoBehaviour
 {
     private static int goalRadius = 10;
+    private int herdedSheep = 0;
+    private static int totalSheep = 8;
 
     // Start is called before the first frame update
     void Start()
@@ -13,9 +15,9 @@ public class Goal : MonoBehaviour
 
         // Spawn Sheep!
         var rand = new System.Random();
-        var sheepToSpawn = 8;
         var sheepSpawns = GameObject.FindGameObjectsWithTag("SheepSpawn").OrderBy(a => rand.Next()).ToList<GameObject>();
 
+        var sheepToSpawn = totalSheep;
 
         foreach (var sheepSpawn in sheepSpawns)
         {
@@ -46,7 +48,7 @@ public class Goal : MonoBehaviour
             var distance = (transform.position - s.transform.position).magnitude;
             if (distance < goalRadius)
             {
-                closeSheep++;
+                //closeSheep++;
             }
         }
 
@@ -54,8 +56,40 @@ public class Goal : MonoBehaviour
 
         if (closeSheep == sheep.Length)
         {
+            //Debug.Log($"All Sheep Herded");
+            //SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+        }
+    }
+
+    void OnTriggerEnter(Collider collider)
+    {
+        Debug.Log($"Start Collider: {collider}");
+        Debug.Log($"Start Collider: {collider.gameObject}");
+        Debug.Log($"Start Collider: {collider.gameObject.tag}");
+
+        if (collider.gameObject.tag.Equals("Sheep"))
+        {
+            herdedSheep++;
+        }
+
+        Debug.Log($"Herded: {herdedSheep}/{totalSheep}");
+
+        if (herdedSheep == totalSheep)
+        {
             Debug.Log($"All Sheep Herded");
             SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+        }
+    }
+
+    void OnTriggerExit(Collider collider)
+    {
+        Debug.Log($"End Collider: {collider}");
+        Debug.Log($"End Collider: {collider.gameObject}");
+        Debug.Log($"End Collider: {collider.gameObject.tag}");
+
+        if (collider.gameObject.tag.Equals("sheep"))
+        {
+            herdedSheep--;
         }
     }
 }

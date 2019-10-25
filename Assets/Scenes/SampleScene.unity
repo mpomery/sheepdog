@@ -1422,6 +1422,7 @@ GameObject:
   - component: {fileID: 2064246331}
   - component: {fileID: 2064246330}
   - component: {fileID: 2064246334}
+  - component: {fileID: 2064246335}
   m_Layer: 0
   m_Name: Goal
   m_TagString: Untagged
@@ -1513,6 +1514,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guiTex: {fileID: 0}
+--- !u!64 &2064246335
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064246329}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1001 &2073709257
 PrefabInstance:
   m_ObjectHideFlags: 0

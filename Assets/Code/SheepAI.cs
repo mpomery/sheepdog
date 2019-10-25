@@ -50,7 +50,7 @@ public class SheepAI : MonoBehaviour
                 var speed = (startleDistance - distance) / startleDistance;
 
                 rb.velocity = Quaternion.Euler(0, angle - 90, 0) * new Vector3(speed * moveSpeed * Time.deltaTime, 0, 0);
-                Debug.Log(rb.velocity);
+                //Debug.Log(rb.velocity);
             }
         }
     }
