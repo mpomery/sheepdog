@@ -5,6 +5,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     public Camera playerCamera;
     public string inputDevice;
+    private float distanceToGround;
 
     // Camera angle and rotation is relative to games axis, not player
     private float cameraElevationAngle = 10; // 10 to 45 degrees
@@ -20,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log($"Player Initialized using {inputDevice}");
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+        distanceToGround = GetComponent<Collider>().bounds.extents.y;
     }
 
     // Update is called once per frame
@@ -73,7 +75,20 @@ public class PlayerMovement : MonoBehaviour
             var step = 1000 * Time.deltaTime;
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(90, playerAngle, 0), step);
 
-            rb.velocity = Quaternion.Euler(0, playerAngle + 90, 0) * new Vector3(inputSpeed * 10, 0, 0);
+            if (IsGrounded())
+            {
+                rb.AddForce(Quaternion.Euler(0, playerAngle + 90, 0) * new Vector3(inputSpeed * 20, 0, 0));
+
+                if (rb.velocity.magnitude > 10)
+                {
+                    rb.velocity = rb.velocity.normalized * 10;
+                }
+            }
+            else
+            {
+                Debug.Log("Airborne!");
+            }
+            Debug.Log(rb.velocity.magnitude);
         }
 
     }
@@ -85,5 +100,10 @@ public class PlayerMovement : MonoBehaviour
         //rb.AddForce(new Vector3(horizontalInput, 0.0f, verticalInput) * moveSpeed * Time.deltaTime);
 
         //rb.velocity = new Vector3(verticalInput * moveSpeed * Time.deltaTime, 0, horizontalInput * moveSpeed * Time.deltaTime);
+    }
+
+    bool IsGrounded()
+    {
+        return Physics.Raycast(transform.position, -Vector3.up, distanceToGround + 0.2f);
     }
 }
