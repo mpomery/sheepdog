@@ -16,12 +16,19 @@ public class Goal : MonoBehaviour
         var sheepToSpawn = 8;
         var sheepSpawns = GameObject.FindGameObjectsWithTag("SheepSpawn").OrderBy(a => rand.Next()).ToList<GameObject>();
 
-        for (var i = 0; i < sheepToSpawn; i++)
+
+        foreach (var sheepSpawn in sheepSpawns)
         {
-            var sheepObject = Resources.Load("Sheep/Sheep") as GameObject;
-            Debug.Log($"Loaded {sheepObject}");
-            var singleSheep = Instantiate(sheepObject);
-            singleSheep.transform.position = sheepSpawns[i].transform.position;
+            if (sheepToSpawn > 0)
+            {
+                var sheepObject = Resources.Load("Sheep/Sheep") as GameObject;
+                Debug.Log($"Loaded {sheepObject}");
+                var singleSheep = Instantiate(sheepObject);
+                singleSheep.transform.position = sheepSpawn.transform.position;
+                sheepToSpawn--;
+            }
+            Object.Destroy(sheepSpawn);
+            
         }
     }
 
