@@ -8,7 +8,7 @@ public class SheepAI : MonoBehaviour
     private Rigidbody rb;
     private float angle;
     private static int startleDistance = 10;
-    private static int moveSpeed = 20;
+    private static int moveSpeed = 800;
 
     // Start is called before the first frame update
     void Start()
@@ -41,16 +41,16 @@ public class SheepAI : MonoBehaviour
 
             if (distance < startleDistance)
             {
-                var theta = Mathf.Atan2(heading.x, heading.z) * Mathf.Rad2Deg;
-                angle = theta + 180;
+                var angle = Mathf.Atan2(heading.x, heading.z) * Mathf.Rad2Deg;
                 //Debug.Log($"angle: {angle}");
 
-                var step = 1000 * Time.deltaTime;
+                var step = 100 * Time.deltaTime;
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(90, angle, 0), step);
 
                 var speed = (startleDistance - distance) / startleDistance;
 
-                rb.velocity = Quaternion.Euler(0, angle + 90, 0) * new Vector3(speed * moveSpeed, 0, 0);
+                rb.velocity = Quaternion.Euler(0, angle - 90, 0) * new Vector3(speed * moveSpeed * Time.deltaTime, 0, 0);
+                Debug.Log(rb.velocity);
             }
         }
     }
