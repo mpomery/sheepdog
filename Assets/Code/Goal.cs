@@ -4,15 +4,12 @@ using UnityEngine.SceneManagement;
 
 public class Goal : MonoBehaviour
 {
-    private static int goalRadius = 10;
     private int herdedSheep = 0;
     private static int totalSheep = 8;
 
     // Start is called before the first frame update
     void Start()
     {
-        transform.localScale = new Vector3(2 * goalRadius, 1, 2 * goalRadius);
-
         // Spawn Sheep!
         var rand = new System.Random();
         var sheepSpawns = GameObject.FindGameObjectsWithTag("SheepSpawn").OrderBy(a => rand.Next()).ToList<GameObject>();
@@ -30,35 +27,12 @@ public class Goal : MonoBehaviour
                 sheepToSpawn--;
             }
             Object.Destroy(sheepSpawn);
-            
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        var closeSheep = 0;
-
-        var sheep = FindObjectsOfType(typeof(SheepAI)) as SheepAI[];
-        //Debug.Log(sheep.Length);
-
-        foreach (var s in sheep)
-        {
-            var distance = (transform.position - s.transform.position).magnitude;
-            if (distance < goalRadius)
-            {
-                //closeSheep++;
-            }
-        }
-
-        //Debug.Log($"{closeSheep}/{sheep.Length}");
-
-        if (closeSheep == sheep.Length)
-        {
-            //Debug.Log($"All Sheep Herded");
-            //SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
-        }
     }
 
     void OnTriggerEnter(Collider collider)
