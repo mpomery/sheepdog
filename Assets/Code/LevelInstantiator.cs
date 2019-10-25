@@ -7,12 +7,13 @@ public class LevelInstantiator : MonoBehaviour
 {
     public Texture guiTex;
     private string[] controllers;
+    private int playerCount;
 
     // Start is called before the first frame update
     // This is used to create all of the player objects in the scene and their cameras
     void Start()
     {
-        var playerCount = Players.PlayerCount();
+        playerCount = Players.PlayerCount();
         var players = Players.GetPlayers();
 
         // Move this out to it's own function with tests. Pass in player, player count and get camera rectangle back
@@ -62,8 +63,6 @@ public class LevelInstantiator : MonoBehaviour
     // Update is called once per frame
     void OnGUI()
     {
-        var playerCount = controllers.Length;
-
         if (playerCount > 1)
         {
             // Draw Horizintal Line
@@ -75,11 +74,5 @@ public class LevelInstantiator : MonoBehaviour
             // Draw Vertical Line
             GUI.DrawTexture(new Rect(Screen.width / 2f, 0, 5, Screen.height), guiTex, ScaleMode.StretchToFill);
         }
-
-        /*if (playerCount == 3)
-        {
-            // Fill Last Box
-            GUI.DrawTexture(new Rect(Screen.width / 2f, (Screen.height / 2f) - 5, Screen.width, Screen.height), guiTexture, ScaleMode.StretchToFill);
-        }*/
     }
 }
