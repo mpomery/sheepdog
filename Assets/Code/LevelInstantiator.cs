@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class LevelInstantiator : MonoBehaviour
 {
-    public Texture guiTex;
+    private Texture guiTex;
     private string[] controllers;
     private int playerCount;
 
@@ -13,6 +13,8 @@ public class LevelInstantiator : MonoBehaviour
     // This is used to create all of the player objects in the scene and their cameras
     void Start()
     {
+        guiTex = Resources.Load<Texture>("splitscreen");
+
         playerCount = Players.PlayerCount();
         var players = Players.GetPlayers();
 
