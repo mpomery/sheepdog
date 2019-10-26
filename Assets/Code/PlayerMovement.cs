@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     // Camera angle and rotation is relative to games axis, not player
     private float cameraElevationAngle = 10; // 10 to 45 degrees
     private float cameraRotation = 180; // 0 - 360 degrees
-    private readonly float cameraDistance = 40; // How far away from the player the camera should sit
+    private readonly float cameraDistance = 15; // How far away from the player the camera should sit
 
     private float playerAngle = 0;
 

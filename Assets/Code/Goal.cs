@@ -95,7 +95,7 @@ public class Goal : MonoBehaviour
         Debug.Log($"End Collider: {collider.gameObject}");
         Debug.Log($"End Collider: {collider.gameObject.tag}");
 
-        if (collider.gameObject.tag.Equals("sheep"))
+        if (collider.gameObject.tag.Equals("Sheep"))
         {
             herdedSheep--;
         }
