@@ -88,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 Debug.Log("Airborne!");
             }
-            Debug.Log(rb.velocity.magnitude);
+            //Debug.Log(rb.velocity.magnitude);
         }
 
     }
