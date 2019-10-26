@@ -45,7 +45,8 @@ public class SheepAI : MonoBehaviour
                 //Debug.Log($"angle: {angle}");
 
                 var step = 100 * Time.deltaTime;
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(90, angle, 0), step);
+                //transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(90, angle, 0), step);
+                transform.rotation = Quaternion.Euler(0, angle + 90, 0);
 
                 var speed = (startleDistance - distance) / startleDistance;
 

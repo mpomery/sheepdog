@@ -67,17 +67,19 @@ public class PlayerMovement : MonoBehaviour
         {
             // Calucate the movement direction input angle
             var theta = Mathf.Atan2(horizontalInput, verticalInput) * Mathf.Rad2Deg;
-            playerAngle = theta + cameraRotation;
+            playerAngle = theta + cameraRotation + 90;
             //Debug.Log($"theta: {theta}");
             //Debug.Log($"playerAngle: {playerAngle}");
 
             // Look Towards that angle
             var step = 1000 * Time.deltaTime;
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(90, playerAngle, 0), step);
+            //transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(90, playerAngle, 0), step);
+            transform.rotation = Quaternion.Euler(0, playerAngle + 180, 0);
+
 
             if (IsGrounded())
             {
-                rb.AddForce(Quaternion.Euler(0, playerAngle + 90, 0) * new Vector3(inputSpeed * 20, 0, 0));
+                rb.AddForce(Quaternion.Euler(0, playerAngle, 0) * new Vector3(inputSpeed * 20, 0, 0));
 
                 if (rb.velocity.magnitude > 10)
                 {
